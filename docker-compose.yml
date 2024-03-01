@@ -1,0 +1,34 @@
+services:
+  pb:
+    build: ./pb
+    volumes:
+     - db-data:/pb/pb_data
+    ports:
+      - "8090:8080"
+    working_dir: /app/pb
+  
+  grafana:
+    image: grafana/grafana-oss
+    environment:
+      GF_INSTALL_PLUGINS: frser-sqlite-datasource
+    ports:
+     - "3000:3000"
+    volumes:
+     - grafana-storage:/var/lib/grafana
+     - db-data:/data_from_pb_service:rw
+
+  # sk:
+  #   image: node:alpine
+  #   # sveltekit build
+  #   command: 
+  #    - sh -c "npm run build"
+  #   volumes:
+  #     - ${PWD}/sk:/app/sk
+  #     - ${PWD}/pb:/app/pb
+  #   environment:
+  #     - HOME=/app/sk
+  #   working_dir: /app/sk
+
+volumes:
+  db-data:
+  grafana-storage:
