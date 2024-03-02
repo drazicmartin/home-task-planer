@@ -21,8 +21,8 @@ export const load = async ({ locals }) => {
         id: '',
         x: 0,
         y: 0,
-        w:2,
-        h:2,
+        w: 5,
+        h: 3,
         movable: false,
         resizable: false,
         text: "Empty"
@@ -31,7 +31,7 @@ export const load = async ({ locals }) => {
     let items: CustomLayoutItem[] = [];
 
     for (const [index, task] of task_list.entries()){
-        let result = getAvailablePosition(default_element, items, 6, 100);
+        let result = getAvailablePosition(default_element, items, 10, 100);
         if (result == null) {
             continue
         }
