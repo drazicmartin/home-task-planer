@@ -10,6 +10,7 @@ export type CustomLayoutItem = Position & Size & {
     max?: Size;
     movable: boolean;
     resizable: boolean;
+    score: number;
 };
 
 export const load = async ({ locals }) => {
