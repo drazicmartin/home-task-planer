@@ -26,7 +26,8 @@ export const load = async ({ locals }) => {
         h: 3,
         movable: false,
         resizable: false,
-        text: "Empty"
+        text: "Empty",
+        score: 0,
     };
 
     let items: CustomLayoutItem[] = [];
