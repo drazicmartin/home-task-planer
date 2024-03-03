@@ -12,8 +12,15 @@ export type CustomLayoutItem = Position & Size & {
     resizable: boolean;
     score: number;
 };
+
 const GRID_MAX_COL = 10;
 const GRID_MAX_ROW = 200;
+
+const SHAPE_LIST = [
+    {
+        w: GRID_MAX_COL
+    }
+]
 
 export const load = async ({ locals }) => {
 
@@ -35,7 +42,7 @@ export const load = async ({ locals }) => {
     let items: CustomLayoutItem[] = [];
 
     for (const [index, task] of task_list.entries()){
-        let result = getAvailablePosition(default_element, items, 10, 100);
+        let result = getAvailablePosition(default_element, items, GRID_MAX_COL, GRID_MAX_ROW);
         if (result == null) {
             continue
         }
@@ -57,8 +64,12 @@ export const load = async ({ locals }) => {
     }
 
     return {
-        items: items
+        items: items,
+        grid_max_col: GRID_MAX_COL,
+        grid_max_row: GRID_MAX_ROW
     }
+}
+
 /** @type {import('./$types').Actions} */
 export const actions = {
 	task_done: async ({ request, locals: { pb }, params }) => {
