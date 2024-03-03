@@ -42,7 +42,7 @@ export const load = async ({ locals }) => {
         const {x, y}: Position = result;
 
         let item = {
-            id: index.toString(),
+            id: task.id,
             resizable: default_element.resizable,
             w: default_element.w,
             h: default_element.h,
