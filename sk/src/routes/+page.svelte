@@ -17,7 +17,6 @@
 		username: '',
 		task_id: '',
 	};
-    let selected_item;
 
     const default_modal: ModalSettings = {
         type: 'component',
