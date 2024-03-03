@@ -1,6 +1,6 @@
-# home-task-planer
+# Home-Task-Tracker (HTT)
 
-HTP, home task planer is a gamified way of having all the housework done !
+HTT, home task tracker is a gamified way of having all the housework done !
 It's is currently in developement.
 
 this project use the following stacks :
