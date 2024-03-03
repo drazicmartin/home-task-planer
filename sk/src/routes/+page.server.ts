@@ -59,4 +59,14 @@ export const load = async ({ locals }) => {
     return {
         items: items
     }
-}
+/** @type {import('./$types').Actions} */
+export const actions = {
+	task_done: async ({ request, locals: { pb }, params }) => {
+		const formData = await request.formData();
+        const username = formData.get('username') as string;
+        const task_id = formData.get('task_id') as string;
+
+        console.log(username);
+        console.log(task_id);
+	},
+};
