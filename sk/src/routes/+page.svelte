@@ -10,9 +10,8 @@
 
     const modalComponent: ModalComponent = { ref: ModalList };
 
-    const modal: ModalSettings = {
+    const default_modal: ModalSettings = {
         type: 'component',
-        title: "choose who did it !",
         component: modalComponent,
     };
 
@@ -21,13 +20,21 @@
     const itemSize = {
         height: 35
     };
+
+    function showModal(task_name: string){
+        const modal: ModalSettings = {
+            ...default_modal,
+            title: `Qui à fait : ${task_name}!`,
+        };
+        modalStore.trigger(modal);
+    }
 </script>
 
 <div class=demo-container>
     <Grid {itemSize} cols={10} collision="none">
         {#each items as item}
             <GridItem x={item.x} y={item.y} w={item.w} h={item.h} class="grid-item">
-                <button class="item btn-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" on:click={() => {modalStore.trigger(modal)}}>
+                <button class="item btn-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" on:click={() => showModal(item.text)}>
                     <p class="h-full text-xl flex items-center justify-center overflow-hidden">
                         {item.text}
                     </p>
