@@ -33,11 +33,16 @@
 <div class=demo-container>
     <Grid {itemSize} cols={10} collision="none">
         {#each items as item}
-            <GridItem x={item.x} y={item.y} w={item.w} h={item.h} class="grid-item">
-                <button class="item btn-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" on:click={() => showModal(item.text)}>
-                    <p class="h-full text-xl flex items-center justify-center overflow-hidden">
-                        {item.text}
-                    </p>
+            <GridItem x={item.x} y={item.y} w={item.w} h={item.h} resizable={true} movable={item.movable} class="grid-item">
+                <button class="item btn-lg  bg-gradient-to-r px-1 py-0 from-indigo-500 via-purple-500 to-pink-500" on:click={() => showModal(item.text)}>
+                    <div class="h-full flex flex-col justify-center overflow-hidden">
+                        <div class="text-xl overflow-hidden">
+                            {item.text}
+                        </div>
+                        <div class="text-2xl mt-1">
+                            {item.score} pts
+                        </div>
+                    </div>
                 </button>
             </GridItem>
         {/each}

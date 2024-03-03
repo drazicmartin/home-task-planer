@@ -45,6 +45,7 @@ export const load = async ({ locals }) => {
             y: y,
             movable: default_element.movable,
             text: task.Name,
+            score: task.Score,
         }
 
         items.push(item);
