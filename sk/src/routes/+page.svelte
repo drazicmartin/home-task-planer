@@ -28,7 +28,7 @@
         {#each items as item}
             <GridItem x={item.x} y={item.y} w={item.w} h={item.h} class="grid-item">
                 <button class="item btn-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" on:click={() => {modalStore.trigger(modal)}}>
-                    <p class="text-xl overflow-hidden">
+                    <p class="h-full text-xl flex items-center justify-center overflow-hidden">
                         {item.text}
                     </p>
                 </button>
