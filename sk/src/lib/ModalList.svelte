@@ -8,7 +8,7 @@
 	export let parent: SvelteComponent;
 
 	// Local
-	let username = 'drazic';
+	let username = 'Drazic';
 	const modalStore = getModalStore();
 
 	// Handle Form Submission
@@ -28,8 +28,8 @@
 	<div class="modal-example-form {cBase}">
 		<header class={cHeader}>{$modalStore[0].title ?? '(title missing)'}</header>
 		<ListBox class="border border-surface-500 p-4 rounded-container-token">
-			<ListBoxItem bind:group={username} name="drazic" value="drazic">Drazic</ListBoxItem>
-			<ListBoxItem bind:group={username} name="delphine" value="delphine">Delphine</ListBoxItem>
+			<ListBoxItem bind:group={username} name="Drazic" value="Drazic">Drazic</ListBoxItem>
+			<ListBoxItem bind:group={username} name="Delphine" value="Delphine">Delphine</ListBoxItem>
 		</ListBox>
 		<!-- prettier-ignore -->
         <footer class="modal-footer {parent.regionFooter}">
