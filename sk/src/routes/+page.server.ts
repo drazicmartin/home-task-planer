@@ -70,6 +70,16 @@ export const load = async ({ locals }) => {
     }
 }
 
+async function getUserIdByUsername(pb, username: string){
+    let result = await pb.collection('users').getList();
+    for (const elt of result.items) {
+        if (elt.username == username) {
+            return elt.id
+        }
+    };
+    return null;
+}
+
 /** @type {import('./$types').Actions} */
 export const actions = {
 	task_done: async ({ request, locals: { pb }, params }) => {
@@ -77,7 +87,22 @@ export const actions = {
         const username = formData.get('username') as string;
         const task_id = formData.get('task_id') as string;
 
-        console.log(username);
-        console.log(task_id);
+        let user_id = await getUserIdByUsername(pb, username);
+
+        const data = {
+            "task": task_id,
+            "user": user_id,
+            "date": new Date(Date.now()).toISOString(),
+            "timestamp": Date.now(),
+            "score": 0
+        };
+
+        await pb.collection('records').create(data).then((result) => {
+            // success...
+            console.log('Result:', result);
+        }).catch((error) => {
+            // error...
+            console.log('Error:', error);
+        });
 	},
 };
