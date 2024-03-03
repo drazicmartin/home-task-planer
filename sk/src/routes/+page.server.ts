@@ -24,7 +24,7 @@ const SHAPE_LIST = [
 
 export const load = async ({ locals }) => {
 
-    let tasks = await locals.pb.collection("Task").getList()
+    let tasks = await locals.pb.collection("tasks").getList();
     let task_list = tasks.items
     
     const default_element: CustomLayoutItem = {
