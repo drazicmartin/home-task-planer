@@ -12,6 +12,8 @@ export type CustomLayoutItem = Position & Size & {
     resizable: boolean;
     score: number;
 };
+const GRID_MAX_COL = 10;
+const GRID_MAX_ROW = 200;
 
 export const load = async ({ locals }) => {
 

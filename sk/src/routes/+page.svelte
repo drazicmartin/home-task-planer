@@ -31,7 +31,7 @@
 </script>
 
 <div class=demo-container>
-    <Grid {itemSize} cols={10} collision="none">
+    <Grid {itemSize} cols={data.grid_max_col} collision="none">
         {#each items as item}
             <GridItem x={item.x} y={item.y} w={item.w} h={item.h} resizable={true} movable={item.movable} class="grid-item">
                 <button class="item btn-lg  bg-gradient-to-r px-1 from-indigo-500 via-purple-500 to-pink-500" on:click={() => showModal(item.text)}>
