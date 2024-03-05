@@ -97,12 +97,18 @@ export const actions = {
             "score": 0
         };
 
+        let response = {
+            success: false,
+            message: ""
+        }
         await pb.collection('records').create(data).then((result) => {
-            // success...
-            console.log('Result:', result);
+            response.success = true;
+            response.message = `Vous avez étez créditer de TODO point`;
         }).catch((error) => {
-            // error...
-            console.log('Error:', error);
+            response.success = false;
+            response.message = error.message;
         });
+
+        return { ...response };
 	},
 };

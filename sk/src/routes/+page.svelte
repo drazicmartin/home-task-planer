@@ -1,18 +1,21 @@
 <script lang="ts">
     import Grid, { GridItem } from 'svelte-grid-extended';
-    import { getModalStore, type ModalComponent, type ModalSettings  } from '@skeletonlabs/skeleton';
-
+    import { getModalStore, type ModalComponent, type ModalSettings, type ToastSettings  } from '@skeletonlabs/skeleton';
     import ModalList from "$lib/ModalList.svelte";
     import type { CustomLayoutItem } from './+page.server.js';
-    import { tick } from 'svelte';
+    import { onMount, tick } from 'svelte';
+    import { getToastStore } from '@skeletonlabs/skeleton';
+    import type { ActionData } from './$types.js';
 
     export let data;
-			
+    export let form: ActionData;
+    
     const modalStore = getModalStore();
+    const toastStore = getToastStore();
 
     const modalComponent: ModalComponent = { ref: ModalList };
 
-    let form: HTMLFormElement;
+    let task_done_form: HTMLFormElement;
     const formData = {
 		username: '',
 		task_id: '',
@@ -37,11 +40,22 @@
                 formData.username = username;
                 formData.task_id = item.id;
                 await tick();
-                form.requestSubmit();
+                task_done_form.requestSubmit();
             }
         };
         modalStore.trigger(modal);
     }
+
+    onMount(async () => {
+        if (form != null){
+            const t: ToastSettings = {
+                message: form.message,
+                // Provide any utility or variant background style:
+                background: `variant-filled-${form.success ? 'success': 'error'}`,
+            }; 
+            toastStore.trigger(t);
+        }
+	});
 </script>
 
 <div class=demo-container>
@@ -64,7 +78,7 @@
 </div>
 
 <form 
-    bind:this={form} 
+    bind:this={task_done_form} 
     method="POST" 
     hidden={true}
     action="?/task_done"
