@@ -86,6 +86,7 @@ export const actions = {
 		const formData = await request.formData();
         const username = formData.get('username') as string;
         const task_id = formData.get('task_id') as string;
+        const task_score = formData.get('task_score') as string;
 
         let user_id = await getUserIdByUsername(pb, username);
 
@@ -94,7 +95,7 @@ export const actions = {
             "user": user_id,
             "date": new Date(Date.now()).toISOString(),
             "timestamp": Date.now(),
-            "score": 0
+            "score": task_score
         };
 
         let response = {
@@ -103,7 +104,7 @@ export const actions = {
         }
         await pb.collection('records').create(data).then((result) => {
             response.success = true;
-            response.message = `Vous avez étez créditer de TODO point`;
+            response.message = `${username} gagne ${task_score} point${(parseInt(task_score) > 1) ? 's': ''} !`;
         }).catch((error) => {
             response.success = false;
             response.message = error.message;

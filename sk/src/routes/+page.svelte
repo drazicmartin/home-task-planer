@@ -19,6 +19,7 @@
     const formData = {
 		username: '',
 		task_id: '',
+        task_score: 0,
 	};
 
     const default_modal: ModalSettings = {
@@ -41,6 +42,7 @@
                     let username = r;
                     formData.username = username;
                     formData.task_id = item.id; 
+                    formData.task_score = item.score;
                     await tick();
                     task_done_form.requestSubmit();
                 }
@@ -62,7 +64,7 @@
                 message: form.message,
                 background: background,
             };
-            
+
             toastStore.trigger(t);
         }
 	});
@@ -95,6 +97,7 @@
 >
 	<input name="username" bind:value={formData.username} type="text">
     <input name="task_id" bind:value={formData.task_id} type="text">
+    <input name="task_score" bind:value={formData.task_score} type="text">
 </form>
 
 <style>
