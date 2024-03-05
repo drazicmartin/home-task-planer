@@ -39,10 +39,10 @@
             response: async (r: string) => {
                 if (r){
                     let username = r;
-                formData.username = username;
-                formData.task_id = item.id;
-                await tick();
-                task_done_form.requestSubmit();
+                    formData.username = username;
+                    formData.task_id = item.id; 
+                    await tick();
+                    task_done_form.requestSubmit();
                 }
             }
         };
@@ -55,7 +55,7 @@
                 message: form.message,
                 // Provide any utility or variant background style:
                 background: `variant-filled-${form.success ? 'success': 'error'}`,
-            }; 
+            };
             toastStore.trigger(t);
         }
 	});
@@ -65,7 +65,7 @@
     <Grid {itemSize} cols={data.grid_max_col} collision="none">
         {#each items as item}
             <GridItem x={item.x} y={item.y} w={item.w} h={item.h} resizable={true} movable={item.movable} class="grid-item">
-                <button class="btn item bg-gradient-to-r px-1 from-indigo-500 via-purple-500 to-pink-500" on:click={() => handleModal(item)}>
+                <button class="btn whitespace-normal item bg-gradient-to-r px-3 from-indigo-500 via-purple-500 to-pink-500" on:click={() => handleModal(item)}>
                     <div class="h-full flex flex-col justify-around overflow-hidden">
                         <div class="text-xl overflow-hidden">
                             {item.text}
