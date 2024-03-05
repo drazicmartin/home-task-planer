@@ -61,7 +61,7 @@
 	});
 </script>
 
-<div class=demo-container>
+<div>
     <Grid {itemSize} cols={data.grid_max_col} collision="none">
         {#each items as item}
             <GridItem x={item.x} y={item.y} w={item.w} h={item.h} resizable={true} movable={item.movable} class="grid-item">
