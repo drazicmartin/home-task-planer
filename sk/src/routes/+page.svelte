@@ -36,11 +36,14 @@
         const modal: ModalSettings = {
             ...default_modal,
             title: `Qui à fait : ${item.text}!`,
-            response: async (username: string) => {
+            response: async (r: string) => {
+                if (r){
+                    let username = r;
                 formData.username = username;
                 formData.task_id = item.id;
                 await tick();
                 task_done_form.requestSubmit();
+                }
             }
         };
         modalStore.trigger(modal);
