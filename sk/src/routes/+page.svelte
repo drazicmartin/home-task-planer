@@ -51,11 +51,18 @@
 
     onMount(async () => {
         if (form != null){
+            let background: string;
+            if (form.success) {
+                background = "variant-filled-success";
+            }else{
+                background = "variant-filled-error";
+            }
+
             const t: ToastSettings = {
                 message: form.message,
-                // Provide any utility or variant background style:
-                background: `variant-filled-${form.success ? 'success': 'error'}`,
+                background: background,
             };
+            
             toastStore.trigger(t);
         }
 	});
