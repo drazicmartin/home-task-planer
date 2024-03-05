@@ -21,7 +21,7 @@ const config = {
 	},
 	plugins: [
     skeleton({
-      themes: { preset: [ "modern" ] }
+      themes: { preset: [ "crimson" ] }
     })
   ]
 } satisfies Config;
