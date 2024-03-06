@@ -49,10 +49,6 @@ const DISPLAY_SIZE_LIST = [
 ]
 
 export const load = async ({ locals }) => {
-
-    let tasks = await locals.pb.collection("tasks").getList();
-    let task_list = tasks.items
-
     let taskScores = await getOrderedTasksScores(locals.pb);
     
     const default_element: CustomLayoutItem = {
