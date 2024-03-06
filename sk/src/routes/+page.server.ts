@@ -93,7 +93,6 @@ export const actions = {
         const data = {
             "task": task_id,
             "user": user_id,
-            "date": new Date(Date.now()).toISOString(),
             "timestamp": Date.now(),
             "score": task_score
         };
