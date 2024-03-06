@@ -20,13 +20,32 @@ export type TaskScores = {
     }
 }
 
-const GRID_MAX_COL = 10;
+const GRID_MAX_COL = 6;
 const GRID_MAX_ROW = 200;
 
-const SHAPE_LIST = [
+const DEFAULT_DISPLAY_SIZE = {
+    w: GRID_MAX_COL/3
+}
+
+const DISPLAY_SIZE_LIST = [
     {
         w: GRID_MAX_COL
-    }
+    },
+    {
+        w: GRID_MAX_COL
+    },
+    {
+        w: GRID_MAX_COL/2
+    },
+    {
+        w: GRID_MAX_COL/2
+    },
+    {
+        w: GRID_MAX_COL/2
+    },
+    {
+        w: GRID_MAX_COL/2
+    },
 ]
 
 export const load = async ({ locals }) => {
@@ -40,7 +59,7 @@ export const load = async ({ locals }) => {
         id: '',
         x: 0,
         y: 0,
-        w: 5,
+        ...DEFAULT_DISPLAY_SIZE,
         h: 3,
         movable: false,
         resizable: false,
@@ -50,6 +69,8 @@ export const load = async ({ locals }) => {
 
     let items: CustomLayoutItem[] = [];
 
+    let shape_list = DISPLAY_SIZE_LIST.slice().reverse();
+
     for (const [task_id, { task }] of Object.entries(taskScores)) {
         let result = getAvailablePosition(default_element, items, GRID_MAX_COL, GRID_MAX_ROW);
         if (result == null) {
@@ -57,10 +78,12 @@ export const load = async ({ locals }) => {
         }
         const {x, y}: Position = result;
 
+        let shape = shape_list.pop() || DEFAULT_DISPLAY_SIZE;
+
         let item = {
             id: task.id,
             resizable: default_element.resizable,
-            w: default_element.w,
+            w: shape.w,
             h: default_element.h,
             x: x,
             y: y,
