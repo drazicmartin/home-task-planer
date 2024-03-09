@@ -4,8 +4,10 @@ services:
     volumes:
      - db-data:/pb/pb_data
     ports:
-      - "8090:8080"
+      - "8090:8090"
     working_dir: /app/pb
+    networks:
+      - back-front
   
   grafana:
     image: grafana/grafana-oss
@@ -17,18 +19,24 @@ services:
      - grafana-storage:/var/lib/grafana
      - db-data:/data_from_pb_service
 
-  # sk:
-  #   image: node:alpine
-  #   # sveltekit build
-  #   command: 
-  #    - sh -c "npm run build"
-  #   volumes:
-  #     - ${PWD}/sk:/app/sk
-  #     - ${PWD}/pb:/app/pb
-  #   environment:
-  #     - HOME=/app/sk
-  #   working_dir: /app/sk
+  sk:
+    build: sk/
+    image: htt-front:latest
+    user: "node"
+    environment:
+      # Internal server error messages will not send stacktrace to the browser in production
+      - NODE_ENV=production
+      # Sets the timezone of the containers OS
+      - TZ=Europe/Paris
+    restart: unless-stopped
+    ports:
+      - 80:80
+    networks:
+      - back-front
 
 volumes:
   db-data:
   grafana-storage:
+
+networks:
+  back-front:
