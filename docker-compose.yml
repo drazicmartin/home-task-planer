@@ -1,6 +1,6 @@
 services:
   pb:
-    build: ./pb
+    build: pb/
     volumes:
      - db-data:/pb/pb_data
     ports:
