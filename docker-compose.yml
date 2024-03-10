@@ -21,6 +21,8 @@ services:
     working_dir: /app/pb
     networks:
       - the-network
+    args:
+      - PLATFORM=arm64 # amd64 or arm64 for raspberry pi
   
   grafana:
     image: grafana/grafana-oss
