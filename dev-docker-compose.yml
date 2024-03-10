@@ -16,7 +16,6 @@ services:
     image: grafana/grafana-oss
     environment:
       GF_INSTALL_PLUGINS: frser-sqlite-datasource
-      GF_SERVER_ROOT_URL: http://%(domain)s/grafana/
     ports: # MANAGED BY NGINX
      - "3001:3000"
     volumes:
