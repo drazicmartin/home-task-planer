@@ -10,7 +10,7 @@ this project use the following stacks :
 # Development 
 ## Start Backend
 ```bash
-docker compose up -d
+docker compose -f .\dev-docker-compose.yml up -d
 ```
 - REST API: http://0.0.0.0:8080/api/
 - Admin UI: http://0.0.0.0:8080/_/

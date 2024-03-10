@@ -1,0 +1,33 @@
+services:
+  pb:
+    build:
+      context: pb/
+      args:
+        - PLATFORM=arm64 # amd64 or arm64 for raspberry pi
+    volumes:
+     - db-data:/pb/pb_data
+    ports: # MANAGED BY NGINX
+      - "3002:8090"
+    working_dir: /app/pb
+    networks:
+      - the-network
+  
+  grafana:
+    image: grafana/grafana-oss
+    environment:
+      GF_INSTALL_PLUGINS: frser-sqlite-datasource
+      GF_SERVER_ROOT_URL: http://%(domain)s/grafana/
+    ports: # MANAGED BY NGINX
+     - "3001:3000"
+    volumes:
+     - grafana-storage:/var/lib/grafana
+     - db-data:/data_from_pb_service
+    networks:
+      - the-network
+
+volumes:
+  db-data:
+  grafana-storage:
+
+networks:
+  the-network:
