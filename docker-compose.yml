@@ -2,8 +2,6 @@ services:
   nginx:
     build: 
       context: nginx/
-      args:
-        - PLATFORM=arm64 # amd64 or arm64 for raspberry pi
     ports:
         - 80:80
     # restart: always
@@ -11,7 +9,10 @@ services:
       - the-network
 
   pb:
-    build: pb/
+    build:
+      context: pb/
+      args:
+        - PLATFORM=arm64 # amd64 or arm64 for raspberry pi
     depends_on:
       - nginx
     volumes:
