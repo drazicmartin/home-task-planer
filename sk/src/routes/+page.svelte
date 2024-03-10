@@ -1,10 +1,10 @@
 <script lang="ts">
     import { getModalStore, type ModalComponent, type ModalSettings, type ToastSettings  } from '@skeletonlabs/skeleton';
     import ModalList from "$lib/ModalList.svelte";
-    import type { ItemLayout } from './+page.server.js';
     import { onMount, tick } from 'svelte';
     import { getToastStore } from '@skeletonlabs/skeleton';
     import type { ActionData } from './$types.js';
+    import type { ItemLayout } from '$lib/types.js';
 
     export let data;
     export let form: ActionData;
