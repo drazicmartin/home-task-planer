@@ -16,6 +16,14 @@ const config = {
 			'../**/*.{html,js,svelte,ts}'
 		)
 	],
+	safelist: [
+		{
+		  pattern: /col-span-\d/,
+		},
+		{
+			pattern: /grid-cols-\d/
+		}
+	],
 	theme: {
 		extend: {},
 	},
