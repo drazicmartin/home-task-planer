@@ -73,7 +73,7 @@
 <div>
     <Grid {itemSize} cols={data.grid_max_col} collision="none">
         {#each items as item}
-            <GridItem x={item.x} y={item.y} w={item.w} h={item.h} resizable={item.resizable} movable={item.movable} class="grid-item">
+            <GridItem x={item.x} y={item.y} w={item.w} h={item.h} resizable={item.resizable} movable={item.movable}>
                 <button class="btn whitespace-normal item bg-gradient-to-r px-3 from-indigo-500 via-purple-500 to-pink-500" on:click={() => handleModal(item)}>
                     <div class="h-full flex flex-col justify-around overflow-hidden">
                         <div class="text-xl overflow-hidden">
