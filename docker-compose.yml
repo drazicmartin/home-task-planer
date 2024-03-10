@@ -1,26 +1,43 @@
 services:
+  nginx:
+    build: nginx/
+    ports:
+        - 80:80
+    # restart: always
+    networks:
+      - the-network
+
   pb:
     build: pb/
+    depends_on:
+      - nginx
     volumes:
      - db-data:/pb/pb_data
-    ports:
-      - "8090:8090"
+    # ports: # MANAGED BY NGINX
+    #   - "3002:8090"
     working_dir: /app/pb
     networks:
-      - back-front
+      - the-network
   
   grafana:
     image: grafana/grafana-oss
+    depends_on:
+      - nginx
     environment:
       GF_INSTALL_PLUGINS: frser-sqlite-datasource
-    ports:
-     - "3000:3000"
+      GF_SERVER_ROOT_URL: http://%(domain)s/grafana/
+    # ports: # MANAGED BY NGINX
+    #  - "3001:3000"
     volumes:
      - grafana-storage:/var/lib/grafana
      - db-data:/data_from_pb_service
+    networks:
+      - the-network
 
   sk:
     build: sk/
+    depends_on:
+      - nginx
     image: htt-front:latest
     user: "node"
     environment:
@@ -29,14 +46,14 @@ services:
       # Sets the timezone of the containers OS
       - TZ=Europe/Paris
     restart: unless-stopped
-    ports:
-      - 80:3000
+    # ports: # MANAGED BY NGINX
+    #   - 3000:3000
     networks:
-      - back-front
+      - the-network
 
 volumes:
   db-data:
   grafana-storage:
 
 networks:
-  back-front:
+  the-network:
