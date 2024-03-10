@@ -1,6 +1,10 @@
 services:
   nginx:
     build: nginx/
+    depends_on:
+      - pb
+      - sk
+      - grafana
     ports:
         - 80:80
     # restart: always
@@ -12,8 +16,6 @@ services:
       context: pb/
       args:
         - PLATFORM=arm64 # amd64 or arm64 for raspberry pi
-    depends_on:
-      - nginx
     volumes:
      - db-data:/pb/pb_data
     # ports: # MANAGED BY NGINX
@@ -24,8 +26,6 @@ services:
   
   grafana:
     image: grafana/grafana-oss
-    depends_on:
-      - nginx
     environment:
       GF_INSTALL_PLUGINS: frser-sqlite-datasource
       GF_SERVER_ROOT_URL: http://%(domain)s/grafana/
@@ -39,8 +39,6 @@ services:
 
   sk:
     build: sk/
-    depends_on:
-      - nginx
     image: htt-front:latest
     user: "node"
     environment:
