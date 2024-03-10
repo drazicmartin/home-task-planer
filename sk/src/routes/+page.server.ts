@@ -1,15 +1,8 @@
-// data came from +layout.server.ts
-import { getAvailablePosition, hasCollisions } from 'svelte-grid-extended/utils/grid';
-
-import { type LayoutItem, type Position, type Size } from "svelte-grid-extended/types";
-
-export type CustomLayoutItem = Position & Size & {
+export type ItemLayout = {
+    w: number;
+    h: number;
     text: string;
     id: string;
-    min?: Size;
-    max?: Size;
-    movable: boolean;
-    resizable: boolean;
     score: number;
 };
 
@@ -35,6 +28,15 @@ const DISPLAY_SIZE_LIST = [
         w: GRID_MAX_COL
     },
     {
+        w: GRID_MAX_COL
+    },
+    {
+        w: GRID_MAX_COL/2
+    },
+    {
+        w: GRID_MAX_COL/2
+    },
+    {
         w: GRID_MAX_COL/2
     },
     {
@@ -51,39 +53,25 @@ const DISPLAY_SIZE_LIST = [
 export const load = async ({ locals }) => {
     let taskScores = await getOrderedTasksScores(locals.pb);
     
-    const default_element: CustomLayoutItem = {
+    const default_element: ItemLayout = {
         id: '',
-        x: 0,
-        y: 0,
         ...DEFAULT_DISPLAY_SIZE,
         h: 3,
-        movable: false,
-        resizable: false,
         text: "Empty",
         score: 0,
     };
 
-    let items: CustomLayoutItem[] = [];
+    let items: ItemLayout[] = [];
 
     let shape_list = DISPLAY_SIZE_LIST.slice().reverse();
 
     for (const [task_id, { task }] of Object.entries(taskScores)) {
-        let result = getAvailablePosition(default_element, items, GRID_MAX_COL, GRID_MAX_ROW);
-        if (result == null) {
-            continue
-        }
-        const {x, y}: Position = result;
-
         let shape = shape_list.pop() || DEFAULT_DISPLAY_SIZE;
 
         let item = {
             id: task.id,
-            resizable: default_element.resizable,
             w: shape.w,
             h: default_element.h,
-            x: x,
-            y: y,
-            movable: default_element.movable,
             text: task.name,
             score: task.score,
         }

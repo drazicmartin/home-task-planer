@@ -1,8 +1,7 @@
 <script lang="ts">
-    import Grid, { GridItem } from 'svelte-grid-extended';
     import { getModalStore, type ModalComponent, type ModalSettings, type ToastSettings  } from '@skeletonlabs/skeleton';
     import ModalList from "$lib/ModalList.svelte";
-    import type { CustomLayoutItem } from './+page.server.js';
+    import type { ItemLayout } from './+page.server.js';
     import { onMount, tick } from 'svelte';
     import { getToastStore } from '@skeletonlabs/skeleton';
     import type { ActionData } from './$types.js';
@@ -33,7 +32,7 @@
         height: 35
     };
 
-    function handleModal(item: CustomLayoutItem){
+    function handleModal(item: ItemLayout){
         const modal: ModalSettings = {
             ...default_modal,
             title: `Qui à fait : ${item.text}!`,
@@ -56,7 +55,7 @@
             let background: string;
             if (form.success) {
                 background = "variant-filled-success";
-            }else{
+            } else {
                 background = "variant-filled-error";
             }
 
@@ -70,23 +69,19 @@
 	});
 </script>
 
-<div>
-    <Grid {itemSize} cols={data.grid_max_col} collision="none">
-        {#each items as item}
-            <GridItem x={item.x} y={item.y} w={item.w} h={item.h} resizable={item.resizable} movable={item.movable}>
-                <button class="btn whitespace-normal item bg-gradient-to-r px-3 from-indigo-500 via-purple-500 to-pink-500" on:click={() => handleModal(item)}>
-                    <div class="h-full flex flex-col justify-around overflow-hidden">
-                        <div class="text-xl overflow-hidden">
-                            {item.text}
-                        </div>
-                        <div class="text-2xl mt-1">
-                            {item.score} pts
-                        </div>
-                    </div>
-                </button>
-            </GridItem>
-        {/each}
-    </Grid>
+<div class={`grid grid-cols-${data.grid_max_col} gap-3`}>
+    {#each items as item}
+        <button class={`item col-span-${item.w} row-span-${item.h}`} on:click={() => handleModal(item)}>
+            <div class="h-full flex flex-col justify-around overflow-hidden">
+                <div class="text-xl overflow-hidden">
+                    {item.text}
+                </div>
+                <div class="text-2xl mt-1">
+                    {item.score} pts
+                </div>
+            </div>
+        </button>
+    {/each}
 </div>
 
 <form 
@@ -102,7 +97,6 @@
 
 <style>
     .item {
-        height: 100%;
-        width: 100%;
+        @apply btn whitespace-normal bg-gradient-to-r px-3 from-indigo-500 via-purple-500 to-pink-500;
     }
 </style>
