@@ -69,7 +69,7 @@
 	});
 </script>
 
-<div class={`grid grid-cols-${data.grid_max_col} gap-3`}>
+<div class={`grid grid-cols-${data.grid_max_col} gap-2 p-3`}>
     {#each items as item}
         <button class={`item col-span-${item.w} row-span-${item.h}`} on:click={() => handleModal(item)}>
             <div class="h-full flex flex-col justify-around overflow-hidden">
