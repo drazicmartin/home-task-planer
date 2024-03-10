@@ -1,7 +1,6 @@
 services:
   nginx:
-    build: 
-      context: nginx/
+    build: nginx/
     ports:
         - 80:80
     # restart: always
