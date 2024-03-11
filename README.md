@@ -18,7 +18,7 @@ docker compose -f .\dev-docker-compose.yml up -d
 ## Start front end
 ```bash
 cd sk
-npm run start
+npm run start -- --open
 ```
 
 # Deploy
