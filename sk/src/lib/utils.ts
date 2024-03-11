@@ -51,7 +51,7 @@ function getCurrentTimestamp() {
     return Math.floor(new Date().getTime() / 1000); // Divide by 1000 to get seconds
 }
 
-export function getScore(task, date: string): number {
+export function getTodoPercentage(task, date: string): number {
     let seconds = unitToSeconds(task.unit) / task.frequency;
     let date_ts = isoToTimestamp(date);
     // let due_date_ts = date_ts + seconds;
@@ -65,7 +65,7 @@ export function sortTaskScores(taskScores: TaskScores){
     const keyValueArray = Object.entries(taskScores);
 
     // Sort array by values
-    keyValueArray.sort((a, b) => a[1].score - b[1].score);
+    keyValueArray.sort((a, b) => a[1].todo_percentage - b[1].todo_percentage);
 
     keyValueArray.reverse();
 
@@ -85,12 +85,12 @@ export async function getOrderedTasksScores(pb): Promise<TaskScores> {
             }
         ).then((record) => {
             taskScores[task.id] = {
-                score: getScore(task, record.created),
+                todo_percentage: getTodoPercentage(task, record.created),
                 task: task
             };
         }).catch(() => {
             taskScores[task.id] = {
-                score: getScore(task, task.created),
+                todo_percentage: getTodoPercentage(task, task.created),
                 task: task
             };
         });

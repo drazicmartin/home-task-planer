@@ -4,11 +4,12 @@ export type ItemLayout = {
     text: string;
     id: string;
     score: number;
+    todo_percentage: number;
 };
 
 export type TaskScores = {
     [key: string]: {
-        score: number;
+        todo_percentage: number;
         task: any;
     }
 }

@@ -54,7 +54,7 @@ export const load = async ({ locals }) => {
 
     let shape_list = DISPLAY_SIZE_LIST.slice().reverse();
 
-    for (const [task_id, { task }] of Object.entries(taskScores)) {
+    for (const [task_id, { task, todo_percentage }] of Object.entries(taskScores)) {
         let shape = shape_list.pop() || DEFAULT_DISPLAY_SIZE;
 
         let item = {
@@ -63,6 +63,7 @@ export const load = async ({ locals }) => {
             h: default_element.h,
             text: task.name,
             score: task.score,
+            todo_percentage: Math.min(100, todo_percentage),
         }
 
         items.push(item);
