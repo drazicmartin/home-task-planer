@@ -22,6 +22,15 @@ const config = {
 		},
 		{
 			pattern: /grid-cols-\d/
+		},
+		{
+			pattern: /via-*/
+		},
+		{
+			pattern: /from-*/
+		},
+		{
+			pattern: /to-*/
 		}
 	],
 	theme: {

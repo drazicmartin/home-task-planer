@@ -97,3 +97,7 @@ export async function getOrderedTasksScores(pb): Promise<TaskScores> {
     };
     return sortTaskScores(taskScores);
 }
+
+export function floorBasedOnMultipleOf5(number: number): number {
+    return Math.floor(number / 5) * 5;
+}

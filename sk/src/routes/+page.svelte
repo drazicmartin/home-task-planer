@@ -5,6 +5,7 @@
     import { getToastStore } from '@skeletonlabs/skeleton';
     import type { ActionData } from './$types.js';
     import type { ItemLayout } from '$lib/types.js';
+    import { floorBasedOnMultipleOf5 } from '$lib/utils.js';
 
     export let data;
     export let form: ActionData;
@@ -67,11 +68,26 @@
             toastStore.trigger(t);
         }
 	});
+
+    function getGradient(item: ItemLayout): string{
+        let intermediate_color;
+        let intensity;
+        if (item.todo_percentage < 50) {
+            intermediate_color = "emerald-400"
+            intensity = floorBasedOnMultipleOf5(item.todo_percentage * 2)
+        }else{
+            intermediate_color = "red-400"
+            intensity = floorBasedOnMultipleOf5((item.todo_percentage - 50) * 2)
+        }
+            
+        return `bg-gradient-to-r from-red-400 from-0% via-${intermediate_color} via-${intensity}% to-emerald-400 to-100%`
+    }
 </script>
+
 
 <div class={`grid grid-cols-${data.grid_max_col} gap-2 p-3`}>
     {#each items as item}
-        <button class={`item col-span-${item.w} row-span-${item.h}`} on:click={() => handleModal(item)}>
+        <button class={`item col-span-${item.w} row-span-${item.h} btn whitespace-normal px-3 ${getGradient(item)}`} on:click={() => handleModal(item)}>
             <div class="h-full flex flex-col justify-around overflow-hidden">
                 <div class="text-xl overflow-hidden">
                     {item.text}
@@ -96,7 +112,4 @@
 </form>
 
 <style>
-    .item {
-        @apply btn whitespace-normal bg-gradient-to-r px-3 from-indigo-500 via-purple-500 to-pink-500;
-    }
 </style>
