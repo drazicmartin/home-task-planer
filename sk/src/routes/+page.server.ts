@@ -40,6 +40,9 @@ const DISPLAY_SIZE_LIST = [
 ]
 
 export const load = async ({ locals }) => {
+    // Get the current time before the operation starts
+    const startTime = performance.now();
+
     let taskScores = await getOrderedTasksScores(locals.pb);
     
     const default_element: ItemLayout = {
@@ -70,10 +73,17 @@ export const load = async ({ locals }) => {
         items.push(item);
     }
 
+    // Get the current time after the operation finishes
+    const endTime = performance.now();
+
+    // Calculate the time difference
+    const load_time = endTime - startTime;
+
     return {
         items: items,
         grid_max_col: GRID_MAX_COL,
-        grid_max_row: GRID_MAX_ROW
+        grid_max_row: GRID_MAX_ROW,
+        load_time: load_time
     }
 }
 

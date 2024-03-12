@@ -99,6 +99,17 @@
         </button>
     {/each}
 </div>
+<footer class="flex flex-col items-center bg-zinc-50 text-center text-surface dark:bg-neutral-700 dark:text-white">
+    
+    <div class="w-full bg-black/5">
+        Load time : {Math.floor(data.load_time)} ms
+    </div>
+    <!--Copyright section-->
+    <div class="w-full bg-black/5 p-4 text-center">
+        © 2023 Copyright:
+        <a href="https://github.com/drazicmartin/home-task-tracker">Drazic</a>
+    </div>
+</footer>
 
 <form 
     bind:this={task_done_form} 
