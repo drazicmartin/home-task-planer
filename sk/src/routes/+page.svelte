@@ -73,14 +73,14 @@
         let intermediate_color;
         let intensity;
         if (item.todo_percentage < 50) {
-            intermediate_color = "emerald-400"
+            intermediate_color = "emerald-300"
             intensity = floorBasedOnMultipleOf5(item.todo_percentage * 2)
         }else{
-            intermediate_color = "red-400"
+            intermediate_color = "red-300"
             intensity = floorBasedOnMultipleOf5((item.todo_percentage - 50) * 2)
         }
             
-        return `bg-gradient-to-r from-red-400 from-0% via-${intermediate_color} via-${intensity}% to-emerald-400 to-100%`
+        return `bg-gradient-to-r from-red-300 from-0% via-${intermediate_color} via-${intensity}% to-emerald-300 to-100%`
     }
 </script>
 
