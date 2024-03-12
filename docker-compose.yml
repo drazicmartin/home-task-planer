@@ -1,6 +1,7 @@
 services:
   nginx:
     build: nginx/
+    image: nginx:latest
     depends_on:
       - pb
       - sk
@@ -16,6 +17,7 @@ services:
       context: pb/
       args:
         - PLATFORM=arm64 # amd64 or arm64 for raspberry pi
+    image: pocket-base:latest
     volumes:
      - db-data:/pb/pb_data
     # ports: # MANAGED BY NGINX
