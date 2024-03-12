@@ -4,7 +4,7 @@ export const load = async ({ locals }) => {
     const pb = locals.pb;
 
     const tasks = await pb.collection('records').getList(1, 50, {
-        order: '-created',
+        sort: '-created',
         expand: 'user,task',
     });
 
