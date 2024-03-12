@@ -48,6 +48,7 @@ export const load = async ({ locals }) => {
         h: 3,
         text: "Empty",
         score: 0,
+        todo_percentage: 0
     };
 
     let items: ItemLayout[] = [];
