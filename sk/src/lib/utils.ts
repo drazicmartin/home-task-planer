@@ -74,7 +74,8 @@ export function sortTaskScores(taskScores: TaskScores){
 }
 
 export async function getOrderedTasksScores(pb): Promise<TaskScores> {
-    const tasks = await pb.collection('tasks').getList();
+    const tasks = await pb.collection('tasks').getList(1, 999);
+
     let taskScores: TaskScores = {};
 
     for (const task of tasks.items) {
