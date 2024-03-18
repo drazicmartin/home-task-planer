@@ -11,14 +11,14 @@
            <div class="flex items-center p-3 space-x-4 rtl:space-x-reverse card variant-glass-success capitalize">
               <div class="flex-1 min-w-0">
                  <p class="text-xl font-medium text-emerald-950 truncate">
-                    {item.expand?.task.name}
+                    {item.expand?.task?.name ?? "TASK_NAME"}
                  </p>
                  <div class="inline-flex items-center px-2 text-xl font-semibold text-gray-50">
                      <p class="text-sm text-gray-950 truncate">
-                        - {item.expand?.user.name}
+                        - {item.expand?.user?.name ?? "USER_NAME"}
                      </p>
                      <p class="text-sm px-5 text-gray-800 truncate">
-                        - {new Date(item.created).toLocaleString()} -
+                        - {new Date(item.created).toLocaleString() ?? "DATE"} -
                      </p>
                 </div>
               </div>
