@@ -17,7 +17,7 @@
 
     let task_done_form: HTMLFormElement;
     const formData = {
-		username: '',
+		usernames: [],
 		task_id: '',
         task_score: 0,
 	};
@@ -37,10 +37,10 @@
         const modal: ModalSettings = {
             ...default_modal,
             title: `Qui à fait : ${item.text}!`,
-            response: async (r: string) => {
+            response: async (r: string | string[]) => {
                 if (r){
-                    let username = r;
-                    formData.username = username;
+                    let usernames = r;
+                    formData.usernames = usernames;
                     formData.task_id = item.id; 
                     formData.task_score = item.score;
                     await tick();
@@ -117,7 +117,7 @@
     hidden={true}
     action="?/task_done"
 >
-	<input name="username" bind:value={formData.username} type="text">
+	<input name="usernames" bind:value={formData.usernames} type="text">
     <input name="task_id" bind:value={formData.task_id} type="text">
     <input name="task_score" bind:value={formData.task_score} type="text">
 </form>

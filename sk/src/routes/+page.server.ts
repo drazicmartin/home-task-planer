@@ -91,31 +91,47 @@ export const load = async ({ locals }) => {
 export const actions = {
 	task_done: async ({ request, locals: { pb }, params }) => {
 		const formData = await request.formData();
-        const username = formData.get('username') as string;
+        const usernamesString = formData.get('usernames') as string;
+        const usernames = usernamesString.split(',').map(username => username.trim());
+        const n = usernames.length;
+
         const task_id = formData.get('task_id') as string;
-        const task_score = formData.get('task_score') as string;
-
-        let user_id = await getUserIdByUsername(pb, username);
-
-        const data = {
-            "task": task_id,
-            "user": user_id,
-            "timestamp": Date.now(),
-            "score": task_score
-        };
+        const task_score = parseFloat(formData.get('task_score') as string) as number;
 
         let response = {
-            success: false,
+            success: true,
             message: ""
         }
-        await pb.collection('records').create(data).then((result) => {
-            response.success = true;
-            response.message = `${username} gagne ${task_score} point${(parseInt(task_score) > 1) ? 's': ''} !`;
-        }).catch((error) => {
-            response.success = false;
-            response.message = error.message;
-        });
 
-        return { ...response };
+        if (n == 1 && usernames[0] === '') {
+            response.success = false;
+            response.message = "Sélectionner au mois une personne";
+            return response;
+        }
+
+        for (const username of usernames) {
+            
+            let user_id = await getUserIdByUsername(pb, username);
+
+            let score = task_score/n;
+    
+            const data = {
+                "task": task_id,
+                "user": user_id,
+                "timestamp": Date.now(),
+                "score": score
+            };
+    
+            await pb.collection('records').create(data).then((result) => {
+                if (response.success == true) {
+                    response.message = `${usernamesString} gagne ${score} point${(score > 1) ? 's': ''} !`;
+                }
+            }).catch((error) => {
+                response.success = false;
+                response.message = error.message;
+            });
+        }
+
+        return response;
 	},
 };
