@@ -12,7 +12,7 @@ const config: UserConfig = {
       // proxy "/api" and "/_" to pocketbase_url
       "/api": pocketbase_url,
       "/_": pocketbase_url,
-      "/dashboard": grafana_url,
+      "/grafana": grafana_url,
     },
   },
 };
