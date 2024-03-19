@@ -35,12 +35,12 @@ docker compose up -d
 # Grafana - query example
 
 ```sql
-SELECT u.name, SUM(score), timestamp as ts 
+SELECT u.name, SUM(score), strftime('%s', r.created)*1000 as ts
 FROM records as r
-INNER JOIN users as u
-ON u.id == r.user
-GROUP BY user
-ORDER BY ts ASC
+INNER JOIN users as u ON u.id = r.user
+WHERE ts >= $__from AND ts <= $__to
+GROUP BY u.name, ts
+ORDER BY ts DESC;
 ```
 
 # Contributors
