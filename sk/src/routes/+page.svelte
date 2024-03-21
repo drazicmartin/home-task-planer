@@ -17,7 +17,7 @@
 
     let task_done_form: HTMLFormElement;
     const formData = {
-		usernames: [],
+		usernames: [""],
 		task_id: '',
         task_score: 0,
 	};
@@ -40,7 +40,7 @@
             response: async (r: string | string[]) => {
                 if (r){
                     let usernames = r;
-                    formData.usernames = usernames;
+                    formData.usernames = usernames as string[];
                     formData.task_id = item.id; 
                     formData.task_score = item.score;
                     await tick();
