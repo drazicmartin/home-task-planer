@@ -37,12 +37,15 @@
         const modal: ModalSettings = {
             ...default_modal,
             title: `Qui à fait : ${item.text}!`,
-            response: async (r: string | string[]) => {
-                if (r){
-                    let usernames = r;
+            meta: {
+                initial_score: item.score
+            },
+            response: async ({usernames, score}) => {
+                if (usernames){
+                    usernames;
                     formData.usernames = usernames as string[];
                     formData.task_id = item.id; 
-                    formData.task_score = item.score;
+                    formData.task_score = score;
                     await tick();
                     task_done_form.requestSubmit();
                 }
