@@ -30,8 +30,8 @@
 <Toast />
 
 <header>
-    <nav class="relative w-full px-4 py-5 flex justify-between items-center bg-white z-10">
-        <ul class="flex absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 mx-auto items-center w-auto space-x-6">
+    <nav class="relative w-full px-2 py-5 flex justify-between items-center bg-white z-10">
+        <ul class="flex absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 mx-auto items-center w-auto space-x-3 md:space-x-8">
             {#each links as link, idx}
                 <li><a class={`text-sm ${(link.href == $page.url.pathname) ? "font-bold" : "text-gray-400 hover:text-gray-500"}`} href={link.href}>{link.name}</a></li>
                 {#if idx != links.length-1}
